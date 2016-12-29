@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+	<div class="site-wrapper">
+		<div class="site-wrapper-inner">
+			<div class="cover-container">
+				<div class="inner cover">
+					<h1 class="cover-heading">CensusTest</h1>
+					<p class="lead">CensusTest takes census data from the Canadian government and lets users answer simple questions to see how they compare to other Canadians.</p>
+					<p class="lead">
+						<a href="{% url 'censustest:get_next_topic' 0 %}" class="btn btn-lg btn-primary">Take the test</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container marketing">
+
+		<hr class="featurette-divider">
+
+		<div class="row featurette">
+			<div class="col-md-7">
+				<h2 class="featurette-heading">Take the test.</h2>
+				<p class="lead">In under two minutes, you can answer census questions related to topics like Demographics, Culture and Work.</p>
+			</div>
+			<div class="col-md-5">
+				<img class="featurette-image img-responsive center-block" src="{% static 'censustest/images/test.png' %}" alt="Generic placeholder image">
+			</div>
+		</div>
+
+		<hr class="featurette-divider">
+
+		<div class="row featurette">
+			<div class="col-md-5 col-md-push-7">
+				<h2 class="featurette-heading">Compare.</h2>
+				<p class="lead">After completing the test, you can view stats and charts to see how your answers compare to the rest of Canada.</p>
+				<a href="{% url 'censustest:get_next_topic' 0 %}" class="btn btn-lg btn-primary">Take the test</a>
+			</div>
+			<div class="col-md-7 col-md-pull-5">
+				<img class="featurette-image img-responsive center-block" src="{% static 'censustest/images/results.png' %}" alt="Generic placeholder image">
+			</div>
+		</div>
+
+	</div>
+
+{% endblock %}

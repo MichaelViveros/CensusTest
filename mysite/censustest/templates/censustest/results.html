@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load censustest_extras %}
+
+{% block head_block %}
+	<script src ="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src ="http://code.highcharts.com/highcharts.js"></script>
+	{% load chartit %}
+	{{ charts|load_charts:chart_div_ids }}
+{% endblock %}
+
+{% block content %}
+	<div class="container theme-showcase" role="main">
+		<div class="progress">
+			<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; min-width: 2em;"><span>100% Complete</span></div>
+		</div>
+
+		<div class="page-header">
+			<h1>Results</h1>
+		</div>
+
+		{% if error_message %}
+			<div class="alert alert-danger" role="alert">
+				<strong>Error:</strong> {{ error_message }}
+			</div>
+		{% else %}
+			{% for topic in topic_list %}
+				<div class="topic-header">
+					<h1>{{ topic.text }}</h1>
+				</div>
+				{% for question in topic.question_set.all %}
+					<h3>{{ question.display_text }}</h3>
+					<h2>
+						<ul class="list-group">
+							{% for stat in question|get_stats:stats_dict %}
+								<li class="list-group-item"><span class="label label-primary">{{ stat }}</span></li>
+							{% endfor %}
+						</ul>
+					</h2><br /><br />
+					<div id='chart_{{ question.id }}'></div><br />
+				{% endfor %}
+				<br />
+			{% endfor %}
+		{% endif %}
+		<a class="btn btn-lg btn-primary" href="{% url 'censustest:index' %}">Home</a>
+
+	</div>
+{% endblock %}

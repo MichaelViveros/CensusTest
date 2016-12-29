@@ -1,0 +1,184 @@
+.label-primary,
+.btn-primary,
+.progress-bar {
+	background-color: #d9534f;
+}
+
+.progress-bar,
+.btn-primary {
+	background-image: none;
+}
+
+
+.btn-primary:focus,
+.btn-primary:hover {
+	background-color: #c72e29;
+}
+
+.btn-primary {
+	border-color: #333;
+}
+
+body {
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
+
+.theme-showcase > p > .btn {
+	margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+	width: auto;
+}
+
+.list-group-item {
+	border: none;
+}
+
+label {
+	font-weight: normal;
+}
+
+.topic-header {
+	text-align: center;
+}
+
+.list-item-stat {
+	text-align: center;
+}
+
+/* css from carousel template used in home page */
+/* GLOBAL STYLES
+-------------------------------------------------- */
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+	margin-bottom: 20px;
+	text-align: center;
+}
+.marketing h2 {
+	font-weight: normal;
+}
+.marketing .col-lg-4 p {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+	margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+	font-weight: 300;
+	line-height: 1;
+	letter-spacing: -1px;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+	.featurette-heading {
+		font-size: 50px;
+	}
+}
+
+@media (min-width: 992px) {
+	.featurette-heading {
+		margin-top: 120px;
+	}
+}
+
+/* css from cover template used in home page */
+/*
+ * Globals
+ */
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+	display: table;
+	width: 100%;
+	height: 100%; /* For at least Firefox */
+	min-height: 100%;
+	text-align: center;
+}
+.site-wrapper-inner {
+	display: table-cell;
+	vertical-align: top;
+}
+.cover-container {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+	padding: 30px;
+}
+
+
+/*
+ * Header
+ */
+.masthead-brand {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+	.masthead-brand {
+		float: left;
+	}
+}
+
+
+/*
+ * Cover
+ */
+
+.cover {
+	padding: 0 20px;
+}
+.cover .btn-lg {
+	padding: 10px 20px;
+	font-weight: bold;
+}
+
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+	/* Pull out the header and footer */
+	.masthead {
+		position: fixed;
+		top: 0;
+	}
+	/* Start the vertical centering */
+	.site-wrapper-inner {
+		vertical-align: middle;
+	}
+	/* Handle the widths */
+	.masthead,
+	.cover-container {
+		width: 100%; /* Must be percentage or pixels for horizontal alignment */
+	}
+}
+
+@media (min-width: 992px) {
+	.masthead,
+	.cover-container {
+		width: 700px;
+	}
+}
