@@ -4,7 +4,7 @@ CensusTest takes census data from the Canadian government and lets users answer 
 It is implemented in Python as a Django web application which uses PostgreSQL as a database.
 
 * `mysite` is the project folder which defines the settings for CensusTest and how the server is run
-* `censustest` is the application folder which contains the bulk of the code for CensusTest including HTML templates, business logic and database migrations
+* `censustest` is the application folder which contains the bulk of the code for CensusTest including HTML templates, business logic and database models
 
 It also uses the [chartit](https://djangopackages.org/packages/p/django-chartit/) Django package which uses [Highcharts](http://www.highcharts.com/) to create charts.
 
