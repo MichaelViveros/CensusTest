@@ -26,9 +26,7 @@ def get_next_topic(request, sequence_num):
 		for question in topic.question_set.all():
 			question_key = 'question%d' % (question.id)
 			if question_key not in request.POST:
-				has_error = True
-				error_msg = "Missing answer for question %d" % (question.sequence_num)
-				break
+				continue
 			choices = [int(choice) for choice in request.POST.getlist(question_key)]
 			if question.select_multiple and len(choices) > 10:
 				has_error = True
@@ -58,13 +56,7 @@ class ResultsView(generic.ListView):
 		stats_dict = {}
 		for topic in self.get_queryset():
 			for question in topic.question_set.all():
-				if str(question.id) not in self.request.session:
-					context['error_message'] = 'Missing choices for some questions. Please do test again.'
-					context['charts'] = []
-					context['chart_div_ids'] = ''
-					return context
-				else:
-					choices = self.request.session[str(question.id)]
+				choices = self.request.session.get(str(question.id), default=[])
 				charts.append(get_chart(question, choices))
 				chart_div_ids.append('chart_%d' % (question.id))
 				stats_dict[question.id] = question.get_stats(choices)

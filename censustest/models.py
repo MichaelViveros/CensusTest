@@ -36,14 +36,13 @@ class Question(models.Model):
 	display_text = property(_get_display_text)
 
 	def get_stats(self, choice_ids):
-		if len(choice_ids) > 10:
-			# TODO: throw error here or do this check somewhere else
-			return []
+		if len(choice_ids) == 0:
+			return ['*You did not select a choice for this question']
 
 		stats = []
 		for choice_id in choice_ids:
 			choice = self.choice_set.get(id=choice_id)
-			stat_text = "%.1f%% of Canadians also selected %s" % (choice.response_percent, choice.text)
+			stat_text = '%.1f%% of Canadians also selected %s' % (choice.response_percent, choice.text)
 			stats.append(stat_text)
 
 		return stats
