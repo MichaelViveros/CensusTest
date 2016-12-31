@@ -1,3 +1,8 @@
+.img-border {
+	border-style: solid;
+	border-width: 1px;
+}
+
 .label-primary,
 .btn-primary,
 .progress-bar {
