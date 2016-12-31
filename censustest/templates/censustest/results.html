@@ -2,8 +2,8 @@
 {% load censustest_extras %}
 
 {% block head_block %}
-	<script src ="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-	<script src ="http://code.highcharts.com/highcharts.js"></script>
+	<script src ="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src ="https://code.highcharts.com/highcharts.js"></script>
 	{% load chartit %}
 	{{ charts|load_charts:chart_div_ids }}
 {% endblock %}
