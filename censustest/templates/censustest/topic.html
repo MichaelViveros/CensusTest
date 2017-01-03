@@ -25,19 +25,19 @@
 			{% if question.select_multiple %}
 				<p>Select up to 10 choices</p>
 			{% endif %}
-			<ul class="list-group">
-				{% for choice in question|sort_choices %}
-					<li class="list-group-item">
-					{% if question.select_multiple %}
-						<input type="checkbox" name="question{{ question.id }}" id="choice{{ choice.id }}" value="{{ choice.id }}"/>
-					{% else %}
-						<input type="radio" name="question{{ question.id }}" id="choice{{ choice.id }}" value="{{ choice.id }}"/>
-					{% endif %}
-					<label for="choice{{ choice.id }}">{{ choice.text }}</label><br />
-				</li>
-				{% endfor %}
-			</ul>
+			{% if question.select_multiple %}
+				<select multiple="multiple" name="question{{ question.id }}">
+			{% else %}
+				<select name="question{{ question.id }}">
+			{% endif %}
+			<option selected disabled>Choose here</option>
+			{% for choice in question|sort_choices %}
+				<option value="{{ choice.id }}">{{ choice.text }}</option>
+			{% endfor %}
+			</select>
+			<br />
 		{% endfor %}
+		<br />
 		<input class="btn btn-lg btn-primary" type="submit" value="Save Answers" />
 		</form>
 	</div>
