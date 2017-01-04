@@ -50,11 +50,21 @@ class ResultsView(generic.ListView):
 
 		return context
 
-def get_chart(question, choices):
+def get_chart(question, choice_ids):
+	choices = question.get_chart_data(choice_ids)
+	# gotta sort choices by text when generating colours since choices show up in graph sorted by text
+	sorted_choices = choices.order_by('text')
+	colours = []
+	for choice in sorted_choices:
+		if choice.id in choice_ids:
+			colours.append('#d9534f')
+		else:
+			colours.append('#5592c5')
+
 	dp = DataPool(
 	   series=
 		[{'options': {
-		   'source': question.get_chart_data(choices)},
+		   'source': question.get_chart_data(choice_ids)},
 		  'terms': [
 			'text',
 			'response_percent']}
@@ -84,7 +94,8 @@ def get_chart(question, choices):
 			'tooltip': {
 				'pointFormat': "{point.y:.1f}%"},
 			'plotOptions': {
-				'series': {
-					'color': '#d9534f'}}})
+				'column': {
+					'colorByPoint': True}},
+			'colors': colours})
 
 	return cht
