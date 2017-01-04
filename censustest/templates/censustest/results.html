@@ -33,7 +33,11 @@
 							{% endfor %}
 						</ul>
 					</h2><br /><br />
-					<div id='chart_{{ question.id }}'></div><br />
+					<div id='chart_{{ question.id }}'></div>
+					{% if question.footnote != "" %}
+						<p>*{{ question.footnote }}</p>
+					{% endif %}
+					<br />
 				{% endfor %}
 				<br />
 			{% endfor %}

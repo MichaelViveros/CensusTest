@@ -23,6 +23,8 @@ class Question(models.Model):
 	sequence_num = models.IntegerField()
 	select_multiple = models.BooleanField(default=False)
 	alphabetical_choices = models.BooleanField(default=True)
+	description = models.CharField(max_length=1000, default='')
+	footnote = models.CharField(max_length=1000, default='')
 
 	class Meta:
 		ordering = ["sequence_num"]

@@ -35,6 +35,9 @@
 					{% for question in topic.question_set.all %}
 						<li class="list-group-item">
 							<h3>{{ question.display_text }}</h3>
+							{% if question.description != "" %}
+								<p>{{ question.description }}</p>
+							{% endif %}
 							{% if question.select_multiple %}
 								<p>Select up to 10 choices</p>
 							{% endif %}
