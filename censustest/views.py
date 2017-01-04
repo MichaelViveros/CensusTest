@@ -7,42 +7,24 @@ from chartit import DataPool, Chart
 from .models import Choice, Question, Topic
 
 
-class TopicView(generic.DetailView):
+class TestView(generic.ListView):
 	model = Topic
-	template_name = 'censustest/topic.html'
-	slug_url_kwarg = 'sequence_num'
-	slug_field = 'sequence_num'
+	template_name = 'censustest/test.html'
 
 
-def get_next_topic(request, sequence_num):
-	num_topics = Topic.objects.count()
-
-	if int(sequence_num) < 0 or int(sequence_num) > num_topics:
-		return HttpResponseRedirect(reverse('censustest:index'))
-	elif int(sequence_num) != 0:
-		has_error = False
-		error_msg = ""
-		topic = Topic.objects.get(sequence_num=sequence_num)
+def save_answers(request):
+	has_error = False
+	error_msg = ""
+	for topic in Topic.objects.all():
 		for question in topic.question_set.all():
 			question_key = 'question%d' % (question.id)
 			if question_key not in request.POST:
 				continue
-			choices = [int(choice) for choice in request.POST.getlist(question_key)]
-			if question.select_multiple and len(choices) > 10:
-				has_error = True
-				error_msg = "You selected too many choices for question %d, maximum number of choices is 10" % (question.sequence_num)
-				break
-			request.session[str(question.id)] = choices
-		if has_error:
-			return render(request, 'censustest/topic.html', {
-				'topic': topic,
-				'error_message': error_msg
-			})
 
-	if int(sequence_num) < num_topics:
-		return HttpResponseRedirect(reverse('censustest:topic', args=(int(sequence_num) + 1,)))
-	else:
-		return HttpResponseRedirect(reverse('censustest:results'))
+			choices = [int(choice) for choice in request.POST.getlist(question_key)]
+			request.session[str(question.id)] = choices
+
+	return HttpResponseRedirect(reverse('censustest:results'))
 
 
 class ResultsView(generic.ListView):
