@@ -25,7 +25,7 @@
 					<h1>{{ topic.text }}</h1>
 				</div>
 				{% for question in topic.question_set.all %}
-					<h3>{{ question.display_text }}</h3>
+					<h3>{{ question.display_text}}</h3>
 					<h2>
 						<ul class="list-group">
 							{% for stat in question|get_stats:stats_dict %}

@@ -34,7 +34,7 @@ class Question(models.Model):
 
 	def _get_display_text(self):
 		"Returns the display text of a question."
-		return '%d. %s' % (self.sequence_num, self.text)
+		return '%d. %s' % (self.sequence_num, self.text.replace(';', ','))
 	display_text = property(_get_display_text)
 
 	def get_stats(self, choice_ids):
@@ -65,6 +65,11 @@ class Choice(models.Model):
 	text = models.CharField(max_length=200)
 	response_count = models.IntegerField()
 	response_percent = models.FloatField()
+
+	def _get_display_text(self):
+		"Returns the display text of a choice."
+		return self.text.replace(';', ',')
+	display_text = property(_get_display_text)
 
 	def __str__(self):
 		return self.text

@@ -66,7 +66,7 @@ def get_chart(question, choice_ids):
 		[{'options': {
 		   'source': question.get_chart_data(choice_ids)},
 		  'terms': [
-			'text',
+			'display_text',
 			'response_percent']}
 		 ])
 
@@ -77,7 +77,7 @@ def get_chart(question, choice_ids):
 			  'type': 'column',
 			  'stacking': False},
 			'terms':{
-			  'text': [
+			  'display_text': [
 				'response_percent']
 			  }}],
 		chart_options =
