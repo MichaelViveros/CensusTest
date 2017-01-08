@@ -44,7 +44,7 @@ class Question(models.Model):
 		stats = []
 		for choice_id in choice_ids:
 			choice = self.choice_set.get(id=choice_id)
-			stat_text = '%.1f%% of Canadians also selected %s' % (choice.response_percent, choice.text)
+			stat_text = '%.1f%% of Canadians also selected %s' % (choice.response_percent, choice.display_text)
 			stats.append(stat_text)
 
 		return stats

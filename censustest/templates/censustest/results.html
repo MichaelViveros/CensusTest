@@ -4,45 +4,70 @@
 {% block head_block %}
 	<script src ="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script src ="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	{% load chartit %}
 	{{ charts|load_charts:chart_div_ids }}
+
+	<script>
+		$( function() {
+			$( "#tabs" ).tabs();
+		} );
+	</script>
 {% endblock %}
 
 {% block content %}
 	<div class="container theme-showcase" role="main">
 
+		<div class="topic-header">
+			<h1>
+				<a href="{% url 'index' %}">CensusTest</a>
+			</h1>
+		</div>
+
+		<div class="progress">
+			<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; min-width: 2em;"><span>100% Complete</span></div>
+		</div>
+
 		<div class="page-header">
 			<h1>Results</h1>
 		</div>
 
-		{% if error_message %}
-			<div class="alert alert-danger" role="alert">
-				<strong>Error:</strong> {{ error_message }}
-			</div>
-		{% else %}
-			{% for topic in topic_list %}
-				<div class="topic-header">
-					<h1>{{ topic.text }}</h1>
-				</div>
-				{% for question in topic.question_set.all %}
-					<h3>{{ question.display_text}}</h3>
-					<h2>
-						<ul class="list-group">
-							{% for stat in question|get_stats:stats_dict %}
-								<li class="list-group-item"><span class="label label-primary">{{ stat }}</span></li>
-							{% endfor %}
-						</ul>
-					</h2><br /><br />
-					<div id='chart_{{ question.id }}'></div>
-					{% if question.footnote != "" %}
-						<p>*{{ question.footnote }}</p>
-					{% endif %}
-					<br />
+		<p class="lead">See your results below. Use the tabs to view questions from different topics.</p>
+
+		<div id="tabs">
+
+			<ul>
+				{% for topic in topic_list %}
+					<li role="presentation"><a href="#{{ topic.id }}">{{ topic.text }}</a></li>
 				{% endfor %}
-				<br />
+			</ul>
+
+			{% for topic in topic_list %}
+				<div id="{{ topic.id }}">
+					<div class="topic-header">
+						<h1>{{ topic.text }}</h1>
+					</div>
+					{% for question in topic.question_set.all %}
+						<h3>{{ question.display_text}}</h3>
+						<h2>
+							<ul class="list-group">
+								{% for stat in question|get_stats:stats_dict %}
+									<li class="list-group-item"><span class="label label-primary">{{ stat }}</span></li>
+								{% endfor %}
+							</ul>
+						</h2><br /><br />
+						<div id='chart_{{ question.id }}'></div>
+						{% if question.footnote != "" %}
+							<p>*{{ question.footnote }}</p>
+						{% endif %}
+						<br />
+					{% endfor %}
+					<br />
+				</div>
 			{% endfor %}
-		{% endif %}
-		<a class="btn btn-lg btn-primary" href="{% url 'index' %}">Home</a>
+
+		</div>
 
 	</div>
 {% endblock %}

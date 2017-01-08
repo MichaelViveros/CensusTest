@@ -34,7 +34,7 @@
 			<div class="col-md-5 col-md-push-7">
 				<h2 class="featurette-heading">Compare.</h2>
 				<p class="lead">After completing the test, you can view stats and charts to see how your answers compare to the rest of Canada.</p>
-				<a href="{% url 'censustest:test' %}" class="btn btn-lg btn-primary">Take the test</a>
+				<a href="{% url 'censustest:get_next_topic' 0 %}" class="btn btn-lg btn-primary">Take the test</a>
 			</div>
 			<div class="col-md-7 col-md-pull-5">
 				<img class="featurette-image img-responsive center-block img-border" src="{% static 'censustest/images/results.png' %}" alt="Generic placeholder image">

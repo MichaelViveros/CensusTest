@@ -7,24 +7,29 @@ from chartit import DataPool, Chart
 from .models import Choice, Question, Topic
 
 
-class TestView(generic.ListView):
+class TopicView(generic.DetailView):
 	model = Topic
-	template_name = 'censustest/test.html'
+	template_name = 'censustest/topic.html'
+	slug_url_kwarg = 'sequence_num'
+	slug_field = 'sequence_num'
 
 
-def save_answers(request):
-	has_error = False
-	error_msg = ""
-	for topic in Topic.objects.all():
+def get_next_topic(request, sequence_num):
+	num_topics = Topic.objects.count()
+
+	if int(sequence_num) != 0:
+		topic = Topic.objects.get(sequence_num=sequence_num)
 		for question in topic.question_set.all():
 			question_key = 'question%d' % (question.id)
 			if question_key not in request.POST:
 				continue
-
 			choices = [int(choice) for choice in request.POST.getlist(question_key)]
 			request.session[str(question.id)] = choices
 
-	return HttpResponseRedirect(reverse('censustest:results'))
+	if int(sequence_num) < num_topics:
+		return HttpResponseRedirect(reverse('censustest:topic', args=(int(sequence_num) + 1,)))
+	else:
+		return HttpResponseRedirect(reverse('censustest:results'))
 
 
 class ResultsView(generic.ListView):
